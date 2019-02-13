@@ -337,6 +337,44 @@
 
 \end{frame}
 
+\begin{frame}[fragile]{Example of looping a string}
+
+  Consider the string 110001 on the following automaton.
+
+  \begin{center}
+    \begin{tikzpicture}[auto, on grid, node distance=2cm, initial text=, >=latex]
+      \node[state, initial]   (q_0)                {\( q_0 \)}; 
+      \node[state, accepting] (q_1) [right of=q_0] {\( q_1 \)};
+      \node[state]            (q_2) [right of=q_1] {\( q_2 \)}; 
+      \path[->] 
+        (q_0) edge [loop above] node {\( 0 \)}   ()
+              edge []           node {\( 1 \)}   (q_1)
+        (q_1) edge [bend left]  node {\( 0 \)}   (q_2)
+              edge [loop above] node {\( 1 \)}   ()
+        (q_2) edge [bend left]  node {\( 0,1 \)} (q_1);
+    \end{tikzpicture}
+  \end{center}
+
+  \vspace{2mm}
+
+  \begin{table}
+  \begin{tabular}{|cc|cc|cc|cc|cc|cc|}
+    \hline
+    $1$ & $1$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $1$ \\
+    \hline
+    \multicolumn{2}{|c|}{$x$} &
+    \multicolumn{2}{c|}{$y$} &
+    \multicolumn{2}{c|}{$y$} &
+    \multicolumn{2}{c|}{$y$} &
+    \multicolumn{2}{c|}{$y$} &
+    \multicolumn{2}{c|}{$z$} \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\end{frame}
+
+
 \begin{frame}{Pumping lemma}
   \begin{theorem}
     \vspace{2mm}
@@ -353,43 +391,40 @@
 
 \end{frame}
 
-
 \begin{frame}[fragile]{Pumping lemma example}
 
-    Consider the string 110001 on the following automaton.
+  Consider the string 110001 on the following automaton.
 
-    \begin{center}
-      \begin{tikzpicture}[auto, on grid, node distance=2cm, initial text=, >=latex]
-        \node[state, initial]   (q_0)                {\( q_0 \)}; 
-        \node[state, accepting] (q_1) [right of=q_0] {\( q_1 \)};
-        \node[state]            (q_2) [right of=q_1] {\( q_2 \)}; 
-        \path[->] 
-          (q_0) edge [loop above] node {\( 0 \)}   ()
-                edge []           node {\( 1 \)}   (q_1)
-          (q_1) edge [bend left]  node {\( 0 \)}   (q_2)
-                edge [loop above] node {\( 1 \)}   ()
-          (q_2) edge [bend left]  node {\( 0,1 \)} (q_1);
-      \end{tikzpicture}
-    \end{center}
+  \begin{center}
+    \begin{tikzpicture}[auto, on grid, node distance=2cm, initial text=, >=latex]
+      \node[state, initial]   (q_0)                {\( q_0 \)}; 
+      \node[state, accepting] (q_1) [right of=q_0] {\( q_1 \)};
+      \node[state]            (q_2) [right of=q_1] {\( q_2 \)}; 
+      \path[->] 
+        (q_0) edge [loop above] node {\( 0 \)}   ()
+              edge []           node {\( 1 \)}   (q_1)
+        (q_1) edge [bend left]  node {\( 0 \)}   (q_2)
+              edge [loop above] node {\( 1 \)}   ()
+        (q_2) edge [bend left]  node {\( 0,1 \)} (q_1);
+    \end{tikzpicture}
+  \end{center}
 
-    \vspace{2mm}
+  Note that $|xy|$ must be less than $p$.
 
-    \begin{table}
-    \begin{tabular}{|cc|cc|cc|cc|cc|cc|}
-      \hline
-      $1$ & $1$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $0$ & $1$ \\
-      \hline
-      \multicolumn{2}{|c|}{$x$} &
-      \multicolumn{2}{c|}{$y$} &
-      \multicolumn{2}{c|}{$y$} &
-      \multicolumn{2}{c|}{$y$} &
-      \multicolumn{2}{c|}{$y$} &
-      \multicolumn{2}{c|}{$z$} \\
-      \hline
-    \end{tabular}
-  \end{table}
+  \vspace{2mm}
+  \pause
+  \begin{table}
+  \begin{tabular}{|c|c|c|c|c|c|c|c|cccc|}
+    \hline
+    $1$ & $1$ & $1$ & $1$ & $1$ & $1$ & $1$ & $1$ & $0$ & $0$ & $0$ & $1$ \\
+    \hline
+    $x$ & $y$ & $y$ & $y$ & $y$ & $y$ & $y$ & $y$ & \multicolumn{4}{c|}{$z$} \\
+    \hline
+  \end{tabular}
+\end{table}
 
 \end{frame}
+
 
 \begin{frame}{No automaton recognises $\{ 0^i 1^i \}$}
   \textcolor{gmitblue}{Is there a finite automaton that recognises $\{ 0^i 1^i \mid i \in \mathbb{N} \}$?}
